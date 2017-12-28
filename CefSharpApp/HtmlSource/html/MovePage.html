@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset=UTF-8>
+    <title>SCROLL</title>
+    <style type="text/css">
+
+    </style>
+    <script type="text/javascript">
+        var goToWhere = function (where) {
+            var me = this;
+            me.site = [];
+            me.sleep = me.sleep ? me.sleep : 16;
+            me.fx = me.fx ? me.fx : 6;
+            clearInterval(me.interval);
+            var dh = document.documentElement.scrollHeight || document.body.scrollHeight;
+            var height = !!where ? dh : 0;
+            me.interval = setInterval(function () {
+                var top = document.documentElement.scrollTop || document.body.scrollTop;
+                var speed = (height - top) / me.fx;
+                if (speed === me.site[0]) {
+                    window.scrollTo(0, height);
+                    clearInterval(me.interval);
+                }
+                window.scrollBy(0, speed);
+                me.site.unshift(speed);
+            }, me.sleep);
+        };
+        document.onload = function () {
+            goToWhere(1);
+        };
+    </script>
+</head>
+<body>
+    <div style="height: 1000px; text-align: center; font-size: 200px; font-weight: bold;">5</div>
+    <div style="height: 1000px; text-align: center; font-size: 200px; font-weight: bold;">4</div>
+    <div style="height: 1000px; text-align: center; font-size: 200px; font-weight: bold;">3</div>
+    <div style="height: 1000px; text-align: center; font-size: 200px; font-weight: bold;">2</div>
+    <div style="height: 1000px; text-align: center; font-size: 200px; font-weight: bold;">1</div>
+    <div style="height: 1000px; text-align: center; font-size: 200px; font-weight: bold;">0</div>
+    <div onclick="goToWhere(0)"
+         style="border: 1px solid red; height: 100px; width: 15px; position: fixed; cursor: pointer; right: 10px; bottom: 150px;">返回顶部</div>
+    <div onclick="goToWhere(1)"
+         style="border: 1px solid red; height: 100px; width: 15px; position: fixed; cursor: pointer; right: 10px; bottom: 30px;">返回底部</div>
+</body>
+</html>  
